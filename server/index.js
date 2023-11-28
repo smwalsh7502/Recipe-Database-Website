@@ -9,27 +9,21 @@ require("./models/recipeModel");
 require("./models/ingredientModel");
 require("./models/userModel");
 require("./models/recipeIngredientModel");
-require("./models/commentModel")
-require("./models/tagModel")
-require("./models/recipeTagModel")
-
 
 const pool = require("./config/db"); // Import the database connection pool
 const recipeRouter = require("./routes/recipeRoutes"); // Load Recipe Router
 const ingredientRouter = require ("./routes/ingredientRoutes");
 const userRouter = require ("./routes/userRoutes");
 const recipeIngredientRouter = require ("./routes/recipeIngredientRoutes");
-const commentRouter = require ("./routes/commentRoutes");
-const tagsRouter = require ("./routes/tagRoutes")
-const recipeTagsRouter = require ("./routes/recipeTagRoutes")
+const loginRouter = require("./routes/loginRoutes")
+
 
 app.use("/api/recipes", recipeRouter); // Use "/api/recipes" for recipe routes
 app.use("/api/ingredients", ingredientRouter);
 app.use("/api/users", userRouter);
 app.use("/api/recipeIngredients", recipeIngredientRouter);
-app.use("/api/comments", commentRouter);
-app.use("/api/tags", tagsRouter)
-app.use("/api/recipeTags", recipeTagsRouter)
+app.use("/api/login", loginRouter)
+
 
 const startServer = async () => {
 

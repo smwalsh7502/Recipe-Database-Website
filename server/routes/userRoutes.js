@@ -1,6 +1,7 @@
 const pool = require('../config/db');
 const express = require('express');
 const router = express.Router();
+const bcrypt = require('bcrypt-nodejs');
 const mysql = require("mysql2/promise"); // Import the mysql2 package
 
 // Create a function to get a connection from the pool
@@ -56,10 +57,14 @@ router.get("/:userIdOrUsername", async (request, response) => {
 // POST (CREATE USER)
 router.post("/", async (request, response) => {
   const userData = request.body;
+
+  // Hash the password before storing it in the database
+  const hashedPassword = bcrypt.hashSync(userData.password);
+  
   try {
     const [result, fields] = await request.dbConnection.execute(
       "INSERT INTO users (username, email, password) VALUES (?, ?, ?)",
-      [userData.username, userData.email, userData.password]
+      [userData.username, userData.email, hashedPassword]
     );
     response.status(201).json({ id: result.insertId });
   } catch (error) {

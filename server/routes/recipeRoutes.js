@@ -81,27 +81,29 @@ router.get("/:recipeId", async (request, response) => {
 
 // POST
 router.post('/', upload.single('recipeImage'), async (request, response) => {
-  const recipeData = request.body;
-  const image_url = request.file.path; // Get the uploaded image path
   try {
+    const { user_id, title, description, instructions, prep_time, cook_time, servings } = request.body;
+    const image_url = request.file.path; // Get the uploaded image path
+
+    // Validate required fields
+    if (!user_id || !title || !description || !instructions || !prep_time || !cook_time || !servings || !image_url) {
+      return response.status(400).json({ error: 'Missing required fields' });
+    }
+
+    // Perform additional validation if needed (e.g., validate image file)
+
     const [result, fields] = await request.dbConnection.execute(
       'INSERT INTO recipes (user_id, title, description, image_url, instructions, prep_time, cook_time, servings) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
-      [
-        recipeData.user_id,
-        recipeData.title,
-        recipeData.description,
-        recipeData.image_url,
-        recipeData.instructions,
-        recipeData.prep_time,
-        recipeData.cook_time,
-        recipeData.servings,
-      ]
+      [user_id, title, description, image_url, instructions, prep_time, cook_time, servings]
     );
+
     response.status(201).json({ id: result.insertId });
   } catch (error) {
+    console.error('Error creating recipe:', error);
     response.status(500).json({ error: 'Failed to create the recipe' });
   }
 });
+
 
 // PUT (UPDATE EXISTING RECIPE)
 router.put("/:recipeId", async (request, response) => {
