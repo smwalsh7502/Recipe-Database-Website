@@ -82,9 +82,8 @@ router.get("/:recipeId", async (request, response) => {
 // POST
 router.post('/', upload.single('recipeImage'), async (request, response) => {
   try {
-    const { user_id, title, description, instructions, prep_time, cook_time, servings } = request.body;
-    const image_url = request.file.path; // Get the uploaded image path
-
+    const { user_id, title, description, instructions, prep_time, cook_time, servings, image_url } = request.body;
+    
     // Validate required fields
     if (!user_id || !title || !description || !instructions || !prep_time || !cook_time || !servings || !image_url) {
       return response.status(400).json({ error: 'Missing required fields' });
@@ -92,12 +91,19 @@ router.post('/', upload.single('recipeImage'), async (request, response) => {
 
     // Perform additional validation if needed (e.g., validate image file)
 
-    const [result, fields] = await request.dbConnection.execute(
+    // Insert the recipe into the database
+    const [result] = await request.dbConnection.execute(
       'INSERT INTO recipes (user_id, title, description, image_url, instructions, prep_time, cook_time, servings) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
       [user_id, title, description, image_url, instructions, prep_time, cook_time, servings]
     );
 
-    response.status(201).json({ id: result.insertId });
+    // Check if the insertion was successful
+    if (result.affectedRows === 1) {
+      const newRecipeId = result.insertId;
+      response.status(201).json({ id: newRecipeId });
+    } else {
+      response.status(500).json({ error: 'Failed to create the recipe' });
+    }
   } catch (error) {
     console.error('Error creating recipe:', error);
     response.status(500).json({ error: 'Failed to create the recipe' });
