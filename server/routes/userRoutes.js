@@ -1,7 +1,7 @@
 const pool = require('../config/db');
 const express = require('express');
 const router = express.Router();
-const bcrypt = require('bcrypt-nodejs');
+const bcrypt = require('bcryptjs');
 const mysql = require("mysql2/promise"); // Import the mysql2 package
 
 // Create a function to get a connection from the pool

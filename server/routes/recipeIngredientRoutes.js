@@ -30,9 +30,9 @@ router.post("/", async (request, response) => {
     const [result, fields] = await request.dbConnection.execute(
       "INSERT INTO recipeIngredients (recipe_id, ingredient_id, quantity) VALUES (?, ?, ?)",
       [
-        recipeIngredientData.recipe_id,
-        recipeIngredientData.ingredient_id,
-        recipeIngredientData.quantity,
+        recipeIngredientData.recipe_id || null,
+        recipeIngredientData.ingredient_id || null,
+        recipeIngredientData.quantity || null,
       ]
     );
     response.status(201).json({ message: "Association created successfully" });
