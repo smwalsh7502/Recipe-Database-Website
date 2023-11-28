@@ -80,7 +80,7 @@ router.get("/:recipeId", async (request, response) => {
   });
 
 // POST
-router.post('/', upload.single('recipeImage'), async (request, response) => {
+router.post('/', async (request, response) => {
   try {
     const { user_id, title, description, instructions, prep_time, cook_time, servings, image_url } = request.body;
     
