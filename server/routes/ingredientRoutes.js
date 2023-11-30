@@ -32,13 +32,31 @@ router.get("/", async (req, res) => {
   }
 });
 
-// GET SPECIFIC INGREDIENT
-router.get("/:ingredientId", async (req, res) => {
-  const { ingredientId } = req.params;
+// GET SPECIFIC INGREDIENT BY NAME
+router.get("/name/:ingredientName", async (req, res) => {
+  const { ingredientName } = req.params;
   try {
     const [rows, fields] = await req.dbConnection.execute(
-      "SELECT * FROM ingredients WHERE ingredient_id = ?",
-      [ingredientId]
+      "SELECT * FROM ingredients WHERE name = ?",
+      [ingredientName]
+    );
+    if (rows.length === 0) {
+      res.status(200).json({ message: "Ingredient found" });
+    } else {
+      res.json(rows[0]);
+    }
+  } catch (error) {
+    res.status(500).json({ error: "Failed to retrieve the ingredient" });
+  }
+});
+
+// GET SPECIFIC INGREDIENT BY NAME
+router.get("/:ingredient", async (req, res) => {
+  const { ingredientName } = req.params;
+  try {
+    const [rows, fields] = await req.dbConnection.execute(
+      "SELECT * FROM ingredients WHERE ingredient_name = ?",
+      [ingredientName]
     );
     if (rows.length === 0) {
       res.status(404).json({ error: "Ingredient not found" });

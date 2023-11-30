@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
+const path = require('path');
 
 app.use(express.json());
 app.use(cors());
@@ -9,6 +10,7 @@ require("./models/recipeModel");
 require("./models/ingredientModel");
 require("./models/userModel");
 require("./models/recipeIngredientModel");
+require("./models/recipeImagesModel")
 
 const pool = require("./config/db"); // Import the database connection pool
 const recipeRouter = require("./routes/recipeRoutes"); // Load Recipe Router
@@ -16,6 +18,7 @@ const ingredientRouter = require ("./routes/ingredientRoutes");
 const userRouter = require ("./routes/userRoutes");
 const recipeIngredientRouter = require ("./routes/recipeIngredientRoutes");
 const loginRouter = require("./routes/loginRoutes")
+const imageRouter = require("./routes/recipeImageRoutes")
 
 
 app.use("/api/recipes", recipeRouter); // Use "/api/recipes" for recipe routes
@@ -23,6 +26,11 @@ app.use("/api/ingredients", ingredientRouter);
 app.use("/api/users", userRouter);
 app.use("/api/recipeIngredients", recipeIngredientRouter);
 app.use("/api/login", loginRouter)
+app.use("/api/recipeimages", imageRouter)
+
+// Serve static files (images) from the 'uploads' directory
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
 
 
 const startServer = async () => {

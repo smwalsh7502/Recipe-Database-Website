@@ -10,7 +10,6 @@ const createRecipesTable = async () => {
           user_id INT,
           FOREIGN KEY (user_id) REFERENCES users(user_id),
           title VARCHAR(255),
-          image_url VARCHAR(255),
           description TEXT,
           instructions TEXT,
           prep_time INT,

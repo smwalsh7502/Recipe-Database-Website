@@ -3,33 +3,6 @@ const express = require('express');
 const router = express.Router();
 const mysql = require("mysql2/promise"); // Import the mysql2 package
 
-// Allows Images into the database
-const multer = require('multer');
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'uploads/'); // Define the directory where the images will be stored
-  },
-  filename: (req, file, cb) => {
-    cb(null, new Date().toISOString() + '-' + file.originalname); // Define the file name
-  },
-});
-
-const fileFilter = (req, file, cb) => {
-  if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
-    cb(null, true); // Accept the file
-  } else {
-    cb(null, false); // Reject the file
-  }
-};
-
-const upload = multer({
-  storage: storage,
-  limits: {
-    fileSize: 1024 * 1024 * 5, // Limit file size to 5MB
-  },
-  fileFilter: fileFilter,
-});
-
 // Create a function to get a connection from the pool
 const getConnection = async () => {
   return await pool.getConnection();
@@ -82,10 +55,10 @@ router.get("/:recipeId", async (request, response) => {
 // POST
 router.post('/', async (request, response) => {
   try {
-    const { user_id, title, description, instructions, prep_time, cook_time, servings, image_url } = request.body;
+    const { user_id, title, description, instructions, prep_time, cook_time, servings} = request.body;
     
     // Validate required fields
-    if (!user_id || !title || !description || !instructions || !prep_time || !cook_time || !servings || !image_url) {
+    if (!user_id || !title || !description || !instructions || !prep_time || !cook_time || !servings) {
       return response.status(400).json({ error: 'Missing required fields' });
     }
 
@@ -93,8 +66,8 @@ router.post('/', async (request, response) => {
 
     // Insert the recipe into the database
     const [result] = await request.dbConnection.execute(
-      'INSERT INTO recipes (user_id, title, description, image_url, instructions, prep_time, cook_time, servings) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
-      [user_id, title, description, image_url, instructions, prep_time, cook_time, servings]
+      'INSERT INTO recipes (user_id, title, description, instructions, prep_time, cook_time, servings) VALUES (?, ?, ?, ?, ?, ?,?)',
+      [user_id, title, description, instructions, prep_time, cook_time, servings]
     );
 
     // Check if the insertion was successful
@@ -117,7 +90,7 @@ router.put("/:recipeId", async (request, response) => {
   const updatedRecipeData = request.body;
   try {
     const [result, fields] = await request.dbConnection.execute(
-      "UPDATE recipes SET user_id = ?, title = ?, description = ?, instructions = ?, prep_time = ?, cook_time = ?, servings = ?, image_url = ? WHERE recipe_id = ?",
+      "UPDATE recipes SET user_id = ?, title = ?, description = ?, instructions = ?, prep_time = ?, cook_time = ?, servings = ? WHERE recipe_id = ?",
       [
         updatedRecipeData.user_id,
         updatedRecipeData.title,
@@ -126,7 +99,6 @@ router.put("/:recipeId", async (request, response) => {
         updatedRecipeData.prep_time,
         updatedRecipeData.cook_time,
         updatedRecipeData.servings,
-        updatedRecipeData.image_url, // Add image_url here
         recipeId,
       ]
     );
