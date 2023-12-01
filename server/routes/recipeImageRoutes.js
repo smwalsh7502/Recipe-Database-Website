@@ -65,9 +65,9 @@ router.post('/', upload.single('image'), async (req, res) => {
     // Insert the image information into the database
     const [result] = await req.dbConnection.execute(
       'INSERT INTO recipeimages (recipe_id, image_path) VALUES (?, ?)',
-      [recipe_id, req.file.path] // Assuming req.file.path contains the image path
+      [recipe_id, req.file.path.replace(/\\/g, '/')]
     );
-
+    
     // Check if the insertion was successful
     if (result.affectedRows === 1) {
       res.status(201).json({ message: 'Image uploaded successfully' });
