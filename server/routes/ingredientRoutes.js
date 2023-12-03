@@ -41,14 +41,15 @@ router.get("/name/:ingredientName", async (req, res) => {
       [ingredientName]
     );
     if (rows.length === 0) {
-      res.status(200).json({ message: "Ingredient found" });
+      res.status(404).json({ message: "Ingredient not found" });
     } else {
-      res.json(rows[0]);
+      res.status(200).json(rows[0]);
     }
   } catch (error) {
     res.status(500).json({ error: "Failed to retrieve the ingredient" });
   }
 });
+
 
 // GET SPECIFIC INGREDIENT BY NAME
 router.get("/:ingredient", async (req, res) => {
