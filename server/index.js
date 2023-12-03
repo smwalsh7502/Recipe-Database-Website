@@ -33,7 +33,7 @@ app.use("/api/login", loginRouter);
 app.use("/api/recipeimages", imageRouter);
 
 // Serve static files (images) from the 'uploads' directory
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use('/api/uploads', express.static(path.join(__dirname, 'uploads')));
 
 const startServer = async () => {
   // Verify the database connection
