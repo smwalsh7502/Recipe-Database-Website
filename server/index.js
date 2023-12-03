@@ -6,35 +6,36 @@ const path = require('path');
 app.use(express.json());
 app.use(cors());
 
+// Import the database connection pool
+const pool = require("./config/db");
+
+// Import models
+require("./models/userModel");
 require("./models/recipeModel");
 require("./models/ingredientModel");
-require("./models/userModel");
+require("./models/recipeImagesModel");
 require("./models/recipeIngredientModel");
-require("./models/recipeImagesModel")
 
-const pool = require("./config/db"); // Import the database connection pool
-const recipeRouter = require("./routes/recipeRoutes"); // Load Recipe Router
-const ingredientRouter = require ("./routes/ingredientRoutes");
+// Import routes
 const userRouter = require ("./routes/userRoutes");
+const recipeRouter = require("./routes/recipeRoutes");
+const ingredientRouter = require ("./routes/ingredientRoutes");
 const recipeIngredientRouter = require ("./routes/recipeIngredientRoutes");
-const loginRouter = require("./routes/loginRoutes")
-const imageRouter = require("./routes/recipeImageRoutes")
+const loginRouter = require("./routes/loginRoutes");
+const imageRouter = require("./routes/recipeImageRoutes");
 
-
-app.use("/api/recipes", recipeRouter); // Use "/api/recipes" for recipe routes
+// Use "/api/recipes" for recipe routes
+app.use("/api/recipes", recipeRouter);
 app.use("/api/ingredients", ingredientRouter);
 app.use("/api/users", userRouter);
 app.use("/api/recipeIngredients", recipeIngredientRouter);
-app.use("/api/login", loginRouter)
-app.use("/api/recipeimages", imageRouter)
+app.use("/api/login", loginRouter);
+app.use("/api/recipeimages", imageRouter);
 
 // Serve static files (images) from the 'uploads' directory
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-
-
 const startServer = async () => {
-
   // Verify the database connection
   try {
     const connection = await pool.getConnection();
