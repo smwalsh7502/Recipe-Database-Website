@@ -14,7 +14,8 @@ const createRecipesTable = async () => {
           instructions TEXT,
           prep_time INT,
           cook_time INT,
-          servings INT
+          servings INT,
+          created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         );
       `);
       console.log('Recipes table created or already exists.');
