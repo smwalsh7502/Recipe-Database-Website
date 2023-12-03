@@ -16,7 +16,7 @@ const createRecipeIngredientsTable = async () => {
       `);
       console.log('RecipeIngredients table created or already exists.');
     } catch (error) {
-      console.error('Error creating users table:', error);
+      console.error('Error creating recipe ingredients table:', error);
     } finally {
       connection.release();
     }
