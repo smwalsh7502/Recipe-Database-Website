@@ -55,12 +55,13 @@ const upload = multer({
 // POST (Upload Recipe Image)
 router.post('/', upload.single('image'), async (req, res) => {
   try {
-    const { recipe_id } = req.body;
 
-    // Validate required fields
-    if (!recipe_id) {
-      return res.status(400).json({ error: 'Missing required fields' });
+     // Check if the file upload middleware processed the file successfully
+     if (!req.file) {
+      return res.status(400).json({ error: 'No file uploaded or invalid file format' });
     }
+
+    const { recipe_id } = req.body;
 
     // Insert the image information into the database
     const [result] = await req.dbConnection.execute(
