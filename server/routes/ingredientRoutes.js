@@ -51,13 +51,13 @@ router.get("/name/:ingredientName", async (req, res) => {
 });
 
 
-// GET SPECIFIC INGREDIENT BY NAME
-router.get("/:ingredient", async (req, res) => {
-  const { ingredientName } = req.params;
+// GET SPECIFIC INGREDIENT BY INGREDIENT ID
+router.get("/:ingredientId", async (req, res) => {
+  const { ingredientId } = req.params;
   try {
     const [rows, fields] = await req.dbConnection.execute(
-      "SELECT * FROM ingredients WHERE ingredient_name = ?",
-      [ingredientName]
+      "SELECT * FROM ingredients WHERE ingredient_id = ?",
+      [ingredientId]
     );
     if (rows.length === 0) {
       res.status(404).json({ error: "Ingredient not found" });

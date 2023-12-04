@@ -22,6 +22,26 @@ router.use(async (req, res, next) => {
   next();
 });
 
+// GET recipe ingredients by recipe ID
+router.get("/:recipeId", async (req, res) => {
+  const { recipeId } = req.params;
+  try {
+    const [rows, fields] = await req.dbConnection.execute(
+      "SELECT ingredient_id, quantity FROM recipeIngredients WHERE recipe_id = ?",
+      [recipeId]
+    );
+
+    if (rows.length === 0) {
+      res.status(404).json({ error: "No ingredients found for the given recipe ID" });
+    } else {
+      res.json(rows);
+    }
+  } catch (error) {
+    console.error("Database error:", error);
+    res.status(500).json({ error: "Failed to fetch recipe ingredients" });
+  }
+});
+
 
 // POST
 router.post("/", async (request, response) => {
