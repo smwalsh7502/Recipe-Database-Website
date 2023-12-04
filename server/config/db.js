@@ -9,7 +9,7 @@ const pool = mysql.createPool({
   user: dbConfig.username,
   password: dbConfig.password,
   database: dbConfig.database,
-  connectionLimit: 200, // Adjust the number as needed
+  connectionLimit: 500, // Adjust the number as needed
 });
 
 module.exports = pool;
