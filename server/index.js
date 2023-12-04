@@ -30,7 +30,10 @@ app.use("/api/ingredients", ingredientRouter);
 app.use("/api/users", userRouter);
 app.use("/api/recipeIngredients", recipeIngredientRouter);
 app.use("/api/login", loginRouter);
-app.use("/api/recipeimages", imageRouter);
+app.use("/api/recipeImages", imageRouter);
+
+// Use dynamic route for individual recipes
+app.use("/api/recipes/:recipeId", recipeRouter);
 
 // Serve static files (images) from the 'uploads' directory
 app.use('/api/uploads', express.static(path.join(__dirname, 'uploads')));
