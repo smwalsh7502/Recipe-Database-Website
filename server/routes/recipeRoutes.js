@@ -52,6 +52,24 @@ router.get("/:recipeId", async (request, response) => {
     }
   });
 
+// GET SPECIFIC RECIPES BY USER ID
+router.get("/:userId", async (request, response) => {
+  const { userId } = request.params;
+  try {
+    const [rows, fields] = await request.dbConnection.execute(
+      "SELECT * FROM recipes WHERE user_id = ?",
+      [userId]
+    );
+    if (rows.length === 0) {
+      response.status(404).json({ error: "Recipe not found" });
+    } else {
+      response.json(rows); // Send all rows, not just the first one
+    }
+  } catch (error) {
+    response.status(500).json({ error: "Failed to retrieve the recipe" });
+  }
+});
+
 // POST
 router.post('/', async (request, response) => {
   try {
