@@ -53,7 +53,7 @@ router.get("/:recipeId", async (request, response) => {
   });
 
 // GET SPECIFIC RECIPES BY USER ID
-router.get("userRecipes/:userId", async (request, response) => {
+router.get("/userRecipes/:userId", async (request, response) => {
   const { userId } = request.params;
   try {
     const [rows, fields] = await request.dbConnection.execute(
