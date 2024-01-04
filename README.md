@@ -24,6 +24,32 @@ https://github.com/smwalsh7502/Recipe-Database-Website/assets/90478060/0629efe3-
 <img width="259" alt="Screenshot 2024-01-04 124547" src="https://github.com/smwalsh7502/Recipe-Database-Website/assets/90478060/794058b5-33e8-49ba-8aff-2aa3949d1b3b">
 <img width="244" alt="Screenshot 2024-01-04 124621" src="https://github.com/smwalsh7502/Recipe-Database-Website/assets/90478060/de70b6db-33d8-4bad-aed0-3a3dddddf941">
 
+## Most challenging part
+The multipart "add recipe" form page was very complicated. It required me to keep track of all the data and make sure each request was sent and handled properly. The Add/Remove Ingredient row functionality also increased the difficulty.
+
+## What I would do differently next time
+- Store uploaded images in a cloud-based server like Amazon S3
+  - Better scalability, less memory usage, faster
+- Add controllers for request handling
+  - My "controllers" were built into each component
+  - I should have instead had each component only handle the "looks"
+- State Management Library/State Alternative (React Contexts, Redux, Recoil, etc.)
+  - I used state hooks but it would have saved time to use a global state manager or alternative
+- Use a React UI component library (React Bootstrap, MUI, etc.)
+  - I spent a lot of time making my own components, but I learned how to use tailwind well
+ 
+## Future project goals
+- "Forgot Password" functionality
+- Recipe editing page
+- User comments/likes on recipes
+  - "Like" button functionality
+  - Adding "liked" recipes to a user profile
+  - Tracking how many "likes" a recipe gets
+  - Showing "most popular" on front page
+- Recipe tags (ex. Italian, Dessert, Gluten-free, Vegan, etc.)
+- Search bar functionality
+  - Search by recipe name, recipe tags, serving size, prep time, cook time, ingredients, etc.
+
 
 
 
