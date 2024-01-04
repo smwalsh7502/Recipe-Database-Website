@@ -1,4 +1,3 @@
-# Code Culinary
 <img width="780" alt="Screenshot 2024-01-04 123853" src="https://github.com/smwalsh7502/Recipe-Database-Website/assets/90478060/8870aee4-8293-4a2c-adf6-3b7b90e631df">
 
 ## Purpose
