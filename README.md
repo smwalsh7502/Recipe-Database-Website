@@ -3,7 +3,6 @@
 ## Purpose
 I love to cook! I wanted to create a website where I could store all my recipes. I also wanted to practice creating a full stack application with a server side database and a professional and user-friendly front end.
 
-## Example Video
 https://github.com/smwalsh7502/Recipe-Database-Website/assets/90478060/0629efe3-1fdf-43ea-bc1f-9b8c65eb41b9
 
 ## Project Goals
