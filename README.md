@@ -1,7 +1,7 @@
 <img width="780" alt="Screenshot 2024-01-04 123853" src="https://github.com/smwalsh7502/Recipe-Database-Website/assets/90478060/8870aee4-8293-4a2c-adf6-3b7b90e631df">
 
 ## Purpose
-I love to cook! I wanted to create a website where I could store all my recipes. I also wanted to practice creating a full stack application with a server side database and a professional and user-friendly front end.
+I love to cook! I wanted to create a website where I could store all my recipes. I also wanted to practice creating a full stack application with a server side database and a professional and user-friendly front end. All the branding was designed by me. :)
 
 
 https://github.com/smwalsh7502/Recipe-Database-Website/assets/90478060/e43ca7a7-b104-4fab-90ee-f18cd3d398b1
